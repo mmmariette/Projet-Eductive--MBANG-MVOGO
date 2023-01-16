@@ -1,0 +1,23 @@
+---
+front:
+  hosts:
+    ${front_end}:
+      ansible_user: debian
+      ansible_become: True
+backends:
+  hosts:
+%{ for node in sbg_backends ~}
+    ${node}:
+      ansible_user: debian
+      ansible_become: True
+%{ endfor ~}
+%{ for node in gra_backends ~}
+    ${node}:
+      ansible_user: debian
+      ansible_become: True
+%{ endfor ~}
+services:
+  hosts:
+    ${service_db}:
+      ansible_user: eductive03
+      ansible_become: True
